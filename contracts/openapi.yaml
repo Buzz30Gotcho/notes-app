@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
-  title: Carnet de bord API
-  description: API d'authentification du carnet de bord étudiant.
+  title: Notes App API
+  description: API de gestion des notes d'activités (créer et suivre ce qui est fait ou non fait).
   version: 1.0.0
   contact:
     name: Support technique
-    email: Support@gmail.com
+    email: support@notes-app.example
 servers:
-  - url: http://localhost:3000/
+  - url: http://localhost:8087/api
     description: Serveur de développement local
 tags:
   - name: Authentification
