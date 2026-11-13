@@ -1,0 +1,31 @@
+name: CI Client
+
+# Déclenché sur les Pull Requests qui touchent le front ou le partagé.
+on:
+  pull_request:
+    paths:
+      - 'client/**'
+      - 'shared/**'
+      - '.github/workflows/ci-client.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --no-watch
