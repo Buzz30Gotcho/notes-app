@@ -1,19 +1,1 @@
-<main>
-  <h1>
-    Mes notes
-  </h1>
-  <section class="notes">
-    @for (note of notes;track note.id ){
-      <article>
-        <h2>
-          {{note.title}}        
-        </h2>
-        <p>{{note.content}}</p>
-        <span>{{note.status==='active' ? 'A faire': 'Terminé'}}</span>
-      </article>
-    }
-  </section>
-
-</main>
-
 <router-outlet />
