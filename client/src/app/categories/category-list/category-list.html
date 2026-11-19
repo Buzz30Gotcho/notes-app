@@ -1,0 +1,50 @@
+<main class="categories">
+  <h1>Mes catégories</h1>
+
+  @if (loadError()) {
+    <p class="error load-error">{{ loadError() }}</p>
+  } @else {
+    <ul class="category-list">
+      @for (category of categories(); track category.id) {
+        <li class="category">
+          <span class="swatch" [style.background-color]="category.color ?? defaultColor"></span>
+          <span class="category-name">{{ category.name }}</span>
+        </li>
+      } @empty {
+        <li class="empty">Aucune catégorie pour le moment.</li>
+      }
+    </ul>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Nouvelle catégorie</h2>
+
+    <label>
+      Nom
+      <input type="text" formControlName="name" placeholder="Sport, Travail…" />
+    </label>
+
+    <fieldset class="palette">
+      <legend>Couleur (facultative)</legend>
+      @for (color of colors; track color.value) {
+        <button
+          type="button"
+          class="color-option"
+          [class.selected]="form.controls.color.value === color.value"
+          [style.background-color]="color.value"
+          [attr.aria-label]="color.label"
+          [attr.aria-pressed]="form.controls.color.value === color.value"
+          (click)="selectColor(color.value)"
+        ></button>
+      }
+    </fieldset>
+
+    <button type="submit" class="submit" [disabled]="saving()">
+      {{ saving() ? 'Création…' : 'Créer la catégorie' }}
+    </button>
+  </form>
+
+  @if (errorMessage()) {
+    <p class="error form-error">{{ errorMessage() }}</p>
+  }
+</main>
