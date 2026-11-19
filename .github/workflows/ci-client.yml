@@ -9,8 +9,11 @@ on:
       - 'shared/**'
       - '.github/workflows/ci-client.yml'
 
+# Les 3 jobs tournent en parallèle et apparaissent séparément sur la Pull Request.
 jobs:
-  test:
+  # Tests unitaires : les services testés seuls (fichiers *.service.spec.ts).
+  unit-tests:
+    name: Tests unitaires
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,12 +31,51 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test -- --no-watch
+      - name: Run unit tests
+        run: npm run test:unit
+
+  # Tests d'intégration : les écrans (composant + HTML + service), serveur simulé.
+  integration-tests:
+    name: Tests d'intégration
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run integration tests
+        run: npm run test:integration
+
+  # Vérifie que l'application compile en mode production.
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build
         run: npm run build
-
-
-
-        

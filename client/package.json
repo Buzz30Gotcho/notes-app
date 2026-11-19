@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:unit": "ng test --no-watch --include='src/**/*.service.spec.ts'",
+    "test:integration": "ng test --no-watch --exclude='src/**/*.service.spec.ts'"
   },
   "private": true,
   "packageManager": "npm@11.19.1",
