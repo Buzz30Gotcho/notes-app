@@ -22,7 +22,7 @@ describe('Register', () => {
 
   it('should create', () => {
     const fixture = TestBed.createComponent(Register);
-    expect(fixture.componentInstance).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();// verifie que le composant ne plante pas
   });
 
   it('should not call the API when the form is empty', () => {
