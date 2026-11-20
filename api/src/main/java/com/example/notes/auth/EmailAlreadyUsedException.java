@@ -6,7 +6,7 @@ package com.example.notes.auth;
  */
 public class EmailAlreadyUsedException extends RuntimeException {
 
-    public EmailAlreadyUsedException(String message) {
-        super(message);
+    public EmailAlreadyUsedException() {
+        super("Cet e-mail est déjà utilisé");
     }
 }

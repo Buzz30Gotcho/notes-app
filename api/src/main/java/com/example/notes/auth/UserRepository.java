@@ -2,15 +2,17 @@ package com.example.notes.auth;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
- * Abstraction du stockage des utilisateurs. Permet de remplacer l'implémentation
- * en mémoire par une base de données (JPA/PostgreSQL) sans toucher au service.
+ * Repository Spring Data JPA pour les utilisateurs.
+ * Spring génère l'implémentation : save(), findById()... sont fournis par
+ * JpaRepository, et les requêtes de existsByEmail / findByEmail sont déduites
+ * du nom des méthodes.
  */
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByEmail(String email);
-
-    User save(User user);
 
     Optional<User> findByEmail(String email);
 }
